@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank Soal Sekolah</title>
+  
+  <!-- Fonts: Nunito (Cheerful) & Outfit (Modern) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Outfit', 'sans-serif'],
+            body: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              blue: '#4F46E5',
+              purple: '#7C3AED',
+              pink: '#EC4899',
+              orange: '#F97316',
+              cyan: '#06B6D4',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    :root {
+      --bg-primary: #F8FAFC;
+      --bg-card: #FFFFFF;
+      --text-primary: #1E293B;
+      --text-secondary: #64748B;
+      --accent-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      --accent-warm: linear-gradient(135deg, #F97316 0%, #EC4899 100%);
+      --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+      --shadow-card: 0 20px 40px -15px rgba(79, 70, 229, 0.15);
+      --radius-lg: 20px;
+    }
+    
+    * { box-sizing: border-box; }
+    
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Decorative Background Blobs */
+    .bg-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+      opacity: 0.6;
+      animation: float 20s infinite alternate;
+    }
+    
+    .blob-1 {
+      top: -10%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.2) 0%, transparent 70%);
+    }
+    
+    .blob-2 {
+      bottom: 10%;
+      right: -5%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%);
+      animation-delay: -10s;
+    }
+    
+    .blob-3 {
+      top: 40%;
+      left: 30%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+      animation-delay: -5s;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, -30px) scale(1.05); }
+    }
+
+    /* Card Styles */
+    .card-white {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+    
+    .card-white:hover {
+      box-shadow: var(--shadow-card);
+      transform: translateY(-2px);
+    }
+
+    /* Form Inputs */
+    .form-input-cheerful {
+      background: #F1F5F9;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: var(--text-primary);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    
+    .form-input-cheerful:focus {
+      outline: none;
+      background: #FFFFFF;
+      border-color: #818CF8;
+      box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.2);
+    }
+
+    .form-label-cheerful {
+      display: block;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    /* Buttons */
+    .btn-gradient {
+      background: var(--accent-gradient);
+      color: white;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 15px;
+      box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .btn-gradient:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 15px 30px -5px rgba(79, 70, 229, 0.5);
+    }
+    
+    .btn-gradient:active { transform: translateY(0) scale(0.98); }
+    .btn-gradient:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    /* File Upload */
+    .upload-zone {
+      border: 2px dashed #CBD5E1;
+      background: #F8FAFC;
+      border-radius: 16px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .upload-zone:hover {
+      border-color: #818CF8;
+      background: rgba(129, 140, 248, 0.05);
+    }
+    
+    .upload-zone.has-file {
+      border-color: #10B981;
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    /* Table */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid #E2E8F0;
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+    
+    .data-table thead th {
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      color: white;
+      padding: 16px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .data-table thead th:first-child { border-radius: 16px 0 0 0; }
+    .data-table thead th:last-child { border-radius: 0 16px 0 0; }
+    
+    .data-table tbody tr {
+      border-bottom: 1px solid #F1F5F9;
+      transition: background 0.2s;
+    }
+    
+    .data-table tbody tr:nth-child(even) { background: #FAFBFC; }
+    .data-table tbody tr:hover { background: #F0F9FF; }
+    
+    .data-table tbody td {
+      padding: 16px;
+      color: #334155;
+      font-weight: 500;
+    }
+
+    /* Status Pill */
+    .status-pill {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    
+    .status-uts { background: #DBEAFE; color: #1D4ED8; }
+    .status-uas { background: #FEE2E2; color: #DC2626; }
+    .status-us { background: #D1FAE5; color: #059669; }
+    .status-ukk { background: #FEF3C7; color: #D97706; }
+    .status-un { background: #E0E7FF; color: #4F46E5; }
+    .status-remedial { background: #FCE7F3; color: #DB2777; }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .animate-in {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+    /* Stats Card Colors */
+    .stat-blue { border-top: 4px solid #4F46E5; }
+    .stat-pink { border-top: 4px solid #EC4899; }
+    .stat-cyan { border-top: 4px solid #06B6D4; }
+    .stat-orange { border-top: 4px solid #F97316; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #F1F5F9; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 16px 24px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border-left: 4px solid #10B981;
+    }
+    
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.error { border-left-color: #EF4444; }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Decorations -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+  <div class="bg-blob blob-3"></div>
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 px-4 py-4">
+    <div class="max-w-6xl mx-auto">
+      <div class="card-white px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-blue to-brand-purple flex items-center justify-center shadow-lg">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="font-display font-bold text-lg text-slate-800">Bank Soal</h1>
+            <p class="text-xs text-slate-400 font-medium">Sistem Upload Ujian</p>
+          </div>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full">
+          <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+          <span class="text-sm font-semibold text-slate-500">Online</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="px-4 pb-16">
+    <div class="max-w-6xl mx-auto space-y-8">
+      
+      <!-- Header Stats -->
+      <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-in delay-1">
+        <div class="card-white p-5 stat-blue">
+          <div class="text-3xl font-display font-bold text-brand-blue" id="totalUploads">0</div>
+          <div class="text-sm font-semibold text-slate-400 mt-1">Total Upload</div>
+        </div>
+        <div class="card-white p-5 stat-pink">
+          <div class="text-3xl font-display font-bold text-brand-pink" id="totalGuru">0</div>
+          <div class="text-sm font-semibold text-slate-400 mt-1">Guru Aktif</div>
+        </div>
+        <div class="card-white p-5 stat-cyan">
+          <div class="text-3xl font-display font-bold text-brand-cyan" id="totalMapel">0</div>
+          <div class="text-sm font-semibold text-slate-400 mt-1">Mata Pelajaran</div>
+        </div>
+        <div class="card-white p-5 stat-orange">
+          <div class="text-3xl font-display font-bold text-brand-orange" id="todayUploads">0</div>
+          <div class="text-sm font-semibold text-slate-400 mt-1">Hari Ini</div>
+        </div>
+      </section>
+
+      <!-- Upload Form -->
+      <section id="upload" class="card-white p-6 md:p-8 animate-in delay-2">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-pink-500 flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-xl text-slate-800">Upload Soal Baru</h2>
+            <p class="text-sm text-slate-400">Lengkapi data berikut untuk mengunggah soal ujian</p>
+          </div>
+        </div>
+
+        <form id="uploadForm" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Nama -->
+            <div>
+              <label class="form-label-cheerful" for="namaGuru">Nama Lengkap</label>
+              <input type="text" id="namaGuru" name="namaGuru" class="form-input-cheerful" placeholder="Nama guru pengirim" required>
+            </div>
+            
+            <!-- Mapel -->
+            <div>
+              <label class="form-label-cheerful" for="mapel">Mata Pelajaran</label>
+              <select id="mapel" name="mapel" class="form-input-cheerful" required>
+                <option value="">Pilih Mata Pelajaran</option>
+                <option value="Matematika">Matematika</option>
+                <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                <option value="Bahasa Inggris">Bahasa Inggris</option>
+                <option value="Fisika">Fisika</option>
+                <option value="Kimia">Kimia</option>
+                <option value="Biologi">Biologi</option>
+                <option value="Sejarah">Sejarah</option>
+                <option value="Geografi">Geografi</option>
+                <option value="Ekonomi">Ekonomi</option>
+                <option value="PKN">PKN</option>
+                <option value="Agama">Pendidikan Agama</option>
+                <option value="Penjas">Penjasorkes</option>
+                <option value="Seni Budaya">Seni Budaya</option>
+                <option value="TIK">TIK</option>
+              </select>
+            </div>
+            
+            <!-- Kelas -->
+            <div>
+              <label class="form-label-cheerful" for="kelas">Kelas</label>
+              <select id="kelas" name="kelas" class="form-input-cheerful" required>
+                <option value="">Pilih Kelas</option>
+                <option value="X">Kelas X</option>
+                <option value="XI">Kelas XI</option>
+                <option value="XII">Kelas XII</option>
+              </select>
+            </div>
+            
+            <!-- Jurusan -->
+            <div>
+              <label class="form-label-cheerful" for="jurusan">Program Keahlian</label>
+              <select id="jurusan" name="jurusan" class="form-input-cheerful" required>
+                <option value="">Pilih Jurusan</option>
+                <option value="TKJ">TKJ</option>
+                <option value="RPL">RPL</option>
+                <option value="MM">Multimedia</option>
+                <option value="AKL">AKL</option>
+                <option value="OTKP">OTKP</option>
+                <option value="BDP">BDP</option>
+                <option value="TITL">TITL</option>
+                <option value="TKR">TKR</option>
+                <option value="UMUM">Umum</option>
+              </select>
+            </div>
+            
+            <!-- Jenis Ujian -->
+            <div>
+              <label class="form-label-cheerful" for="jenisUjian">Jenis Ujian</label>
+              <select id="jenisUjian" name="jenisUjian" class="form-input-cheerful" required>
+                <option value="">Pilih Jenis</option>
+                <option value="UTS">UTS</option>
+                <option value="UAS">UAS</option>
+                <option value="US">Ujian Sekolah</option>
+                <option value="UN">Ujian Nasional</option>
+                <option value="UKK">UKK</option>
+                <option value="Remedial">Remedial</option>
+              </select>
+            </div>
+            
+            <!-- File Upload -->
+            <div class="md:col-span-2 lg:col-span-1">
+              <label class="form-label-cheerful">Dokumen Soal</label>
+              <div id="uploadZone" class="upload-zone">
+                <input type="file" id="fileInput" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx" class="hidden" required>
+                <div id="uploadContent">
+                  <svg class="w-10 h-10 mx-auto text-slate-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                  </svg>
+                  <p class="text-sm font-semibold text-slate-400">Klik atau seret file</p>
+                  <p class="text-xs text-slate-300 mt-1">PDF, DOC, XLS (Max 10MB)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-end pt-2">
+            <button type="submit" id="submitBtn" class="btn-gradient">
+              <span id="btnText">Upload Soal</span>
+              <svg id="btnIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+              <svg id="btnSpinner" class="w-5 h-5 hidden animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Data Table -->
+      <section id="data" class="card-white p-6 md:p-8 animate-in delay-3">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center shadow-lg">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="font-display font-bold text-xl text-slate-800">Data Pengirim</h2>
+              <p class="text-sm text-slate-400">Rekap guru yang sudah mengupload soal</p>
+            </div>
+          </div>
+          
+          <div class="relative">
+            <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input type="text" id="searchInput" class="form-input-cheerful pl-10 pr-4 py-2.5 w-full md:w-64" placeholder="Cari nama guru...">
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-3 mb-6 pb-6 border-b border-slate-100">
+          <select id="filterMapel" class="form-input-cheerful py-2 px-4 text-sm w-auto">
+            <option value="">Semua Mapel</option>
+          </select>
+          
+          <select id="filterKelas" class="form-input-cheerful py-2 px-4 text-sm w-auto">
+            <option value="">Semua Kelas</option>
+            <option value="X">Kelas X</option>
+            <option value="XI">Kelas XI</option>
+            <option value="XII">Kelas XII</option>
+          </select>
+          
+          <select id="filterJurusan" class="form-input-cheerful py-2 px-4 text-sm w-auto">
+            <option value="">Semua Jurusan</option>
+          </select>
+          
+          <select id="filterJenis" class="form-input-cheerful py-2 px-4 text-sm w-auto">
+            <option value="">Semua Jenis</option>
+            <option value="UTS">UTS</option>
+            <option value="UAS">UAS</option>
+            <option value="US">Ujian Sekolah</option>
+            <option value="UN">Ujian Nasional</option>
+            <option value="UKK">UKK</option>
+            <option value="Remedial">Remedial</option>
+          </select>
+          
+          <button id="resetFilter" class="text-sm font-bold text-brand-blue hover:text-brand-purple transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nama Guru</th>
+                <th>Mapel</th>
+                <th>Kelas</th>
+                <th>Jurusan</th>
+                <th>Jenis Ujian</th>
+                <th>Tanggal</th>
+              </tr>
+            </thead>
+            <tbody id="dataTableBody"></tbody>
+          </table>
+        </div>
+        
+        <!-- Empty State -->
+        <div id="emptyState" class="py-16 text-center hidden">
+          <svg class="w-20 h-20 mx-auto text-slate-200 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+          </svg>
+          <p class="font-bold text-slate-400">Belum ada data</p>
+          <p class="text-sm text-slate-300 mt-1">Data akan muncul setelah guru mengupload</p>
+        </div>
+        
+        <!-- Loading State -->
+        <div id="tableLoading" class="py-16 text-center">
+          <div class="w-10 h-10 border-4 border-slate-200 border-t-brand-blue rounded-full animate-spin mx-auto mb-4"></div>
+          <p class="font-semibold text-slate-400">Memuat data...</p>
+        </div>
+        
+        <!-- Pagination -->
+        <div id="pagination" class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 pt-6 border-t border-slate-100 hidden">
+          <p class="text-sm text-slate-400">
+            Menampilkan <span id="showingFrom" class="font-bold text-slate-600">1</span>-<span id="showingTo" class="font-bold text-slate-600">10</span> dari <span id="totalData" class="font-bold text-slate-600">0</span>
+          </p>
+          <div class="flex items-center gap-2">
+            <button id="prevPage" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors font-semibold text-sm disabled:opacity-50" disabled>
+              Sebelumnya
+            </button>
+            <div id="pageNumbers" class="hidden sm:flex gap-1"></div>
+            <button id="nextPage" class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors font-semibold text-sm disabled:opacity-50">
+              Selanjutnya
+            </button>
+          </div>
+        </div>
+      </section>
+      
+    </div>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <svg id="toastIcon" class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+    <span id="toastMessage" class="font-semibold text-slate-700"></span>
+  </div>
+
+  <script>
+    // Configuration & State
+    const CONFIG = { ITEMS_PER_PAGE: 10 };
+    let state = {
+      data: [],
+      filteredData: [],
+      currentPage: 1,
+      isLoading: false,
+      filters: { search: '', mapel: '', kelas: '', jurusan: '', jenisUjian: '' }
+    };
+
+    // DOM Elements
+    const el = {};
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Cache elements
+      el.form = document.getElementById('uploadForm');
+      el.submitBtn = document.getElementById('submitBtn');
+      el.btnText = document.getElementById('btnText');
+      el.btnIcon = document.getElementById('btnIcon');
+      el.btnSpinner = document.getElementById('btnSpinner');
+      el.fileInput = document.getElementById('fileInput');
+      el.uploadZone = document.getElementById('uploadZone');
+      el.uploadContent = document.getElementById('uploadContent');
+      el.tableBody = document.getElementById('dataTableBody');
+      el.tableLoading = document.getElementById('tableLoading');
+      el.emptyState = document.getElementById('emptyState');
+      el.pagination = document.getElementById('pagination');
+      el.searchInput = document.getElementById('searchInput');
+      el.filterMapel = document.getElementById('filterMapel');
+      el.filterKelas = document.getElementById('filterKelas');
+      el.filterJurusan = document.getElementById('filterJurusan');
+      el.filterJenis = document.getElementById('filterJenis');
+      el.resetFilter = document.getElementById('resetFilter');
+      el.totalUploads = document.getElementById('totalUploads');
+      el.totalGuru = document.getElementById('totalGuru');
+      el.totalMapel = document.getElementById('totalMapel');
+      el.todayUploads = document.getElementById('todayUploads');
+      el.toast = document.getElementById('toast');
+      el.toastMessage = document.getElementById('toastMessage');
+      el.toastIcon = document.getElementById('toastIcon');
+      el.prevPage = document.getElementById('prevPage');
+      el.nextPage = document.getElementById('nextPage');
+      el.pageNumbers = document.getElementById('pageNumbers');
+      el.showingFrom = document.getElementById('showingFrom');
+      el.showingTo = document.getElementById('showingTo');
+      el.totalData = document.getElementById('totalData');
+
+      setupEventListeners();
+      loadMockData();
+    });
+
+    // Mock Data
+    function loadMockData() {
+      state.data = [
+        { id: 1, namaGuru: 'Ahmad Fauzi, S.Pd', mapel: 'Matematika', kelas: 'X', jurusan: 'TKJ', jenisUjian: 'UTS', timestamp: '2024-01-15T08:30:00' },
+        { id: 2, namaGuru: 'Siti Nurhaliza, S.Pd', mapel: 'Bahasa Inggris', kelas: 'XI', jurusan: 'RPL', jenisUjian: 'UAS', timestamp: '2024-01-15T09:45:00' },
+        { id: 3, namaGuru: 'Budi Santoso, M.Pd', mapel: 'Fisika', kelas: 'XII', jurusan: 'MM', jenisUjian: 'US', timestamp: '2024-01-14T14:20:00' },
+        { id: 4, namaGuru: 'Dewi Lestari, S.Pd', mapel: 'Bahasa Indonesia', kelas: 'X', jurusan: 'AKL', jenisUjian: 'UTS', timestamp: '2024-01-14T10:15:00' },
+        { id: 5, namaGuru: 'Eko Prasetyo, S.Kom', mapel: 'TIK', kelas: 'XI', jurusan: 'TKJ', jenisUjian: 'UKK', timestamp: '2024-01-13T11:00:00' },
+        { id: 6, namaGuru: 'Fitri Handayani, S.Pd', mapel: 'Kimia', kelas: 'XII', jurusan: 'RPL', jenisUjian: 'UAS', timestamp: '2024-01-13T08:00:00' },
+        { id: 7, namaGuru: 'Gunawan Wibowo, M.Pd', mapel: 'Sejarah', kelas: 'X', jurusan: 'OTKP', jenisUjian: 'Remedial', timestamp: '2024-01-12T15:30:00' },
+        { id: 8, namaGuru: 'Hesti Rahayu, S.Pd', mapel: 'Ekonomi', kelas: 'XI', jurusan: 'BDP', jenisUjian: 'UTS', timestamp: '2024-01-12T09:00:00' },
+        { id: 9, namaGuru: 'Irwan Setiawan, S.Pd', mapel: 'Biologi', kelas: 'XII', jurusan: 'MM', jenisUjian: 'UN', timestamp: '2024-01-11T13:45:00' },
+        { id: 10, namaGuru: 'Joko Widodo, M.Pd', mapel: 'Geografi', kelas: 'X', jurusan: 'TKJ', jenisUjian: 'UAS', timestamp: '2024-01-11T10:30:00' },
+        { id: 11, namaGuru: 'Kartini Sari, S.Pd', mapel: 'Matematika', kelas: 'XI', jurusan: 'AKL', jenisUjian: 'UTS', timestamp: new Date().toISOString() },
+        { id: 12, namaGuru: 'Lukman Hakim, S.Kom', mapel: 'TIK', kelas: 'XII', jurusan: 'RPL', jenisUjian: 'UKK', timestamp: new Date().toISOString() }
+      ];
+      
+      state.filteredData = [...state.data];
+      populateFilterOptions();
+      renderTable();
+      updateStats();
+      showTableLoading(false);
+    }
+
+    // Render Functions
+    function renderTable() {
+      const start = (state.currentPage - 1) * CONFIG.ITEMS_PER_PAGE;
+      const end = start + CONFIG.ITEMS_PER_PAGE;
+      const pageData = state.filteredData.slice(start, end);
+      
+      if (state.filteredData.length === 0) {
+        el.tableBody.innerHTML = '';
+        el.emptyState.classList.remove('hidden');
+        el.pagination.classList.add('hidden');
+        return;
+      }
+      
+      el.emptyState.classList.add('hidden');
+      el.pagination.classList.remove('hidden');
+      
+      el.tableBody.innerHTML = pageData.map((item, index) => `
+        <tr>
+          <td class="font-bold text-slate-500">${start + index + 1}</td>
+          <td class="font-bold text-slate-700">${escapeHtml(item.namaGuru)}</td>
+          <td>${escapeHtml(item.mapel)}</td>
+          <td><span class="px-2 py-1 bg-slate-100 rounded text-xs font-bold">${escapeHtml(item.kelas)}</span></td>
+          <td>${escapeHtml(item.jurusan)}</td>
+          <td><span class="status-pill status-${item.jenisUjian.toLowerCase()}">${escapeHtml(item.jenisUjian)}</span></td>
+          <td class="text-sm text-slate-400">${formatDate(item.timestamp)}</td>
+        </tr>
+      `).join('');
+      
+      updatePagination();
+    }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(state.filteredData.length / CONFIG.ITEMS_PER_PAGE);
+      const start = (state.currentPage - 1) * CONFIG.ITEMS_PER_PAGE + 1;
+      const end = Math.min(state.currentPage * CONFIG.ITEMS_PER_PAGE, state.filteredData.length);
+      
+      el.showingFrom.textContent = start;
+      el.showingTo.textContent = end;
+      el.totalData.textContent = state.filteredData.length;
+      
+      el.prevPage.disabled = state.currentPage === 1;
+      el.nextPage.disabled = state.currentPage === totalPages || totalPages === 0;
+      
+      let pageHtml = '';
+      for (let i = 1; i <= Math.min(totalPages, 5); i++) {
+        const isActive = i === state.currentPage;
+        pageHtml += `<button class="w-8 h-8 rounded-lg text-sm font-bold ${isActive ? 'bg-brand-blue text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'} transition-colors" onclick="goToPage(${i})">${i}</button>`;
+      }
+      el.pageNumbers.innerHTML = pageHtml;
+    }
+
+    window.goToPage = (page) => {
+      state.currentPage = page;
+      renderTable();
+    };
+
+    function updateStats() {
+      const today = new Date().toDateString();
+      const todayCount = state.data.filter(item => new Date(item.timestamp).toDateString() === today).length;
+      const uniqueGuru = [...new Set(state.data.map(item => item.namaGuru))].length;
+      const uniqueMapel = [...new Set(state.data.map(item => item.mapel))].length;
+      
+      animateNumber(el.totalUploads, state.data.length);
+      animateNumber(el.totalGuru, uniqueGuru);
+      animateNumber(el.totalMapel, uniqueMapel);
+      animateNumber(el.todayUploads, todayCount);
+    }
+
+    function animateNumber(el, target) {
+      let current = 0;
+      const increment = target / 20;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          el.textContent = target;
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(current);
+        }
+      }, 30);
+    }
+
+    function populateFilterOptions() {
+      const mapelSet = new Set(state.data.map(item => item.mapel));
+      const jurusanSet = new Set(state.data.map(item => item.jurusan));
+      
+      el.filterMapel.innerHTML = '<option value="">Semua Mapel</option>' + [...mapelSet].map(m => `<option value="${m}">${m}</option>`).join('');
+      el.filterJurusan.innerHTML = '<option value="">Semua Jurusan</option>' + [...jurusanSet].map(j => `<option value="${j}">${j}</option>`).join('');
+    }
+
+    function applyFilters() {
+      const { search, mapel, kelas, jurusan, jenisUjian } = state.filters;
+      
+      state.filteredData = state.data.filter(item => {
+        return (!search || item.namaGuru.toLowerCase().includes(search.toLowerCase())) &&
+               (!mapel || item.mapel === mapel) &&
+               (!kelas || item.kelas === kelas) &&
+               (!jurusan || item.jurusan === jurusan) &&
+               (!jenisUjian || item.jenisUjian === jenisUjian);
+      });
+      
+      state.currentPage = 1;
+      renderTable();
+    }
+
+    // Event Listeners
+    function setupEventListeners() {
+      // Form Submit
+      el.form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const file = el.fileInput.files[0];
+        if (!file) {
+          showToast('Pilih file untuk diupload', 'error');
+          return;
+        }
+        
+        // Show loading
+        el.submitBtn.disabled = true;
+        el.btnText.textContent = 'Mengupload...';
+        el.btnIcon.classList.add('hidden');
+        el.btnSpinner.classList.remove('hidden');
+        
+        await new Promise(r => setTimeout(r, 1500));
+        
+        const formData = new FormData(e.target);
+        const newItem = {
+          id: state.data.length + 1,
+          namaGuru: formData.get('namaGuru'),
+          mapel: formData.get('mapel'),
+          kelas: formData.get('kelas'),
+          jurusan: formData.get('jurusan'),
+          jenisUjian: formData.get('jenisUjian'),
+          timestamp: new Date().toISOString()
+        };
+        
+        state.data.unshift(newItem);
+        applyFilters();
+        updateStats();
+        
+        el.form.reset();
+        resetFileUpload();
+        
+        el.submitBtn.disabled = false;
+        el.btnText.textContent = 'Upload Soal';
+        el.btnIcon.classList.remove('hidden');
+        el.btnSpinner.classList.add('hidden');
+        
+        showToast('Soal berhasil diupload!', 'success');
+      });
+
+      // File Upload
+      el.uploadZone.addEventListener('click', () => el.fileInput.click());
+      el.fileInput.addEventListener('change', handleFileSelect);
+      el.uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); el.uploadZone.classList.add('bg-indigo-50'); });
+      el.uploadZone.addEventListener('dragleave', () => el.uploadZone.classList.remove('bg-indigo-50'));
+      el.uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        el.uploadZone.classList.remove('bg-indigo-50');
+        if (e.dataTransfer.files[0]) {
+          el.fileInput.files = e.dataTransfer.files;
+          handleFileSelect({ target: el.fileInput });
+        }
+      });
+
+      // Filters
+      el.searchInput.addEventListener('input', (e) => { state.filters.search = e.target.value; applyFilters(); });
+      el.filterMapel.addEventListener('change', (e) => { state.filters.mapel = e.target.value; applyFilters(); });
+      el.filterKelas.addEventListener('change', (e) => { state.filters.kelas = e.target.value; applyFilters(); });
+      el.filterJurusan.addEventListener('change', (e) => { state.filters.jurusan = e.target.value; applyFilters(); });
+      el.filterJenis.addEventListener('change', (e) => { state.filters.jenisUjian = e.target.value; applyFilters(); });
+      el.resetFilter.addEventListener('click', () => {
+        state.filters = { search: '', mapel: '', kelas: '', jurusan: '', jenisUjian: '' };
+        el.searchInput.value = '';
+        el.filterMapel.value = '';
+        el.filterKelas.value = '';
+        el.filterJurusan.value = '';
+        el.filterJenis.value = '';
+        applyFilters();
+      });
+
+      // Pagination
+      el.prevPage.addEventListener('click', () => { if (state.currentPage > 1) { state.currentPage--; renderTable(); }});
+      el.nextPage.addEventListener('click', () => {
+        const totalPages = Math.ceil(state.filteredData.length / CONFIG.ITEMS_PER_PAGE);
+        if (state.currentPage < totalPages) { state.currentPage++; renderTable(); }
+      });
+    }
+
+    // Utilities
+    function handleFileSelect(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (file.size > 10 * 1024 * 1024) { showToast('Ukuran file maksimal 10MB', 'error'); return; }
+      
+      el.uploadZone.classList.add('has-file');
+      el.uploadContent.innerHTML = `
+        <svg class="w-10 h-10 mx-auto text-emerald-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <p class="text-sm font-bold text-slate-700">${escapeHtml(file.name)}</p>
+        <p class="text-xs text-slate-400 mt-1">${(file.size / 1024).toFixed(1)} KB</p>
+      `;
+    }
+
+    function resetFileUpload() {
+      el.uploadZone.classList.remove('has-file');
+      el.fileInput.value = '';
+      el.uploadContent.innerHTML = `
+        <svg class="w-10 h-10 mx-auto text-slate-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        <p class="text-sm font-semibold text-slate-400">Klik atau seret file</p>
+        <p class="text-xs text-slate-300 mt-1">PDF, DOC, XLS (Max 10MB)</p>
+      `;
+    }
+
+    function showTableLoading(show) {
+      el.tableLoading.classList.toggle('hidden', !show);
+      el.tableBody.classList.toggle('hidden', show);
+    }
+
+    function showToast(message, type = 'success') {
+      el.toast.className = `toast ${type}`;
+      el.toastMessage.textContent = message;
+      const iconPath = type === 'success' 
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>';
+      el.toastIcon.innerHTML = iconPath;
+      el.toastIcon.className = `w-6 h-6 ${type === 'success' ? 'text-emerald-500' : 'text-red-500'}`;
+      el.toast.classList.add('show');
+      setTimeout(() => el.toast.classList.remove('show'), 4000);
+    }
+
+    function formatDate(dateStr) {
+      return new Date(dateStr).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
