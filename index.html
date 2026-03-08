@@ -590,7 +590,10 @@
 
   <script>
     // Configuration & State
-    const CONFIG = { ITEMS_PER_PAGE: 10 };
+    const CONFIG = { 
+      API_URL: 'https://script.google.com/macros/s/AKfycbwgzFRdCSERaU7RGxzEMLE3gkGLKZOTCEHnMtgGYWkg7OThmJ3kp2_LzTKtrFk2wZ1b7Q/exec',
+      ITEMS_PER_PAGE: 10 
+    };
     let state = {
       data: [],
       filteredData: [],
@@ -638,9 +641,36 @@
       el.totalData = document.getElementById('totalData');
 
       setupEventListeners();
-      loadMockData();
+      fetchData();
     });
 
+    async function fetchData() {
+      try {
+        state.isLoading = true;
+        showTableLoading(true);
+        
+        const response = await fetch(`${CONFIG.API_URL}?action=getAll`);
+        const result = await response.json();
+        
+        if (result.success) {
+          state.data = result.data;
+          state.filteredData = [...state.data];
+          populateFilterOptions();
+          renderTable();
+          updateStats();
+        } else {
+          throw new Error(result.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showToast('Gagal memuat data', 'error');
+        // Jika error (misal offline), load mock data sebagai fallback opsional
+        // loadMockData(); 
+      } finally {
+        state.isLoading = false;
+        showTableLoading(false);
+      }
+    }    
     // Mock Data
     function loadMockData() {
       state.data = [
@@ -782,38 +812,62 @@
           return;
         }
         
-        // Show loading
+        // UI Loading State
         el.submitBtn.disabled = true;
         el.btnText.textContent = 'Mengupload...';
         el.btnIcon.classList.add('hidden');
         el.btnSpinner.classList.remove('hidden');
         
-        await new Promise(r => setTimeout(r, 1500));
-        
-        const formData = new FormData(e.target);
-        const newItem = {
-          id: state.data.length + 1,
-          namaGuru: formData.get('namaGuru'),
-          mapel: formData.get('mapel'),
-          kelas: formData.get('kelas'),
-          jurusan: formData.get('jurusan'),
-          jenisUjian: formData.get('jenisUjian'),
-          timestamp: new Date().toISOString()
-        };
-        
-        state.data.unshift(newItem);
-        applyFilters();
-        updateStats();
-        
-        el.form.reset();
-        resetFileUpload();
-        
-        el.submitBtn.disabled = false;
-        el.btnText.textContent = 'Upload Soal';
-        el.btnIcon.classList.remove('hidden');
-        el.btnSpinner.classList.add('hidden');
-        
-        showToast('Soal berhasil diupload!', 'success');
+        try {
+          // 1. Konversi file ke Base64
+          const reader = new FileReader();
+          const fileBase64 = await new Promise((resolve, reject) => {
+            reader.onload = () => resolve(reader.result.split(',')[1]); // Ambil bagian base64 saja
+            reader.onerror = error => reject(error);
+            reader.readAsDataURL(file);
+          });
+          
+          // 2. Siapkan data untuk dikirim
+          const formData = new FormData(e.target);
+          const payload = new URLSearchParams();
+          payload.append('action', 'upload');
+          payload.append('namaGuru', formData.get('namaGuru'));
+          payload.append('mapel', formData.get('mapel'));
+          payload.append('kelas', formData.get('kelas'));
+          payload.append('jurusan', formData.get('jurusan'));
+          payload.append('jenisUjian', formData.get('jenisUjian'));
+          payload.append('fileBase64', fileBase64);
+          payload.append('fileName', file.name);
+          payload.append('mimeType', file.type);
+          
+          // 3. Kirim ke Google Apps Script
+          const response = await fetch(CONFIG.API_URL, {
+            method: 'POST',
+            body: payload
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            showToast('Soal berhasil diupload!', 'success');
+            el.form.reset();
+            resetFileUpload();
+            // Muat ulang data dari server
+            fetchData(); 
+          } else {
+            throw new Error(result.message || 'Gagal upload');
+          }
+          
+        } catch (error) {
+          console.error(error);
+          showToast('Gagal mengupload: ' + error.message, 'error');
+        } finally {
+          // Reset Button
+          el.submitBtn.disabled = false;
+          el.btnText.textContent = 'Upload Soal';
+          el.btnIcon.classList.remove('hidden');
+          el.btnSpinner.classList.add('hidden');
+        }
       });
 
       // File Upload
