@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bank Soal SMKN 1 Dako Pemean</title>
   
-  <!-- Fonts: Nunito (Cheerful) & Outfit (Modern) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
@@ -42,7 +42,6 @@
       --text-primary: #1E293B;
       --text-secondary: #64748B;
       --accent-gradient: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
-      --accent-warm: linear-gradient(135deg, #F97316 0%, #EC4899 100%);
       --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
       --shadow-card: 0 20px 40px -15px rgba(79, 70, 229, 0.15);
       --radius-lg: 20px;
@@ -68,36 +67,11 @@
       animation: float 20s infinite alternate;
     }
     
-    .blob-1 {
-      top: -10%;
-      left: -10%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(79, 70, 229, 0.2) 0%, transparent 70%);
-    }
-    
-    .blob-2 {
-      bottom: 10%;
-      right: -5%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%);
-      animation-delay: -10s;
-    }
-    
-    .blob-3 {
-      top: 40%;
-      left: 30%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
-      animation-delay: -5s;
-    }
+    .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(79, 70, 229, 0.2) 0%, transparent 70%); }
+    .blob-2 { bottom: 10%; right: -5%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%); animation-delay: -10s; }
+    .blob-3 { top: 40%; left: 30%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%); animation-delay: -5s; }
 
-    @keyframes float {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(30px, -30px) scale(1.05); }
-    }
+    @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, -30px) scale(1.05); } }
 
     /* Card Styles */
     .card-white {
@@ -108,11 +82,7 @@
       border: 1px solid rgba(255, 255, 255, 0.8);
       transition: all 0.3s ease;
     }
-    
-    .card-white:hover {
-      box-shadow: var(--shadow-card);
-      transform: translateY(-2px);
-    }
+    .card-white:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
 
     /* Form Inputs */
     .form-input-cheerful {
@@ -126,21 +96,8 @@
       transition: all 0.3s ease;
       width: 100%;
     }
-    
-    .form-input-cheerful:focus {
-      outline: none;
-      background: #FFFFFF;
-      border-color: #818CF8;
-      box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.2);
-    }
-
-    .form-label-cheerful {
-      display: block;
-      font-weight: 700;
-      color: #475569;
-      margin-bottom: 8px;
-      font-size: 14px;
-    }
+    .form-input-cheerful:focus { outline: none; background: #FFFFFF; border-color: #818CF8; box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.2); }
+    .form-label-cheerful { display: block; font-weight: 700; color: #475569; margin-bottom: 8px; font-size: 14px; }
 
     /* Buttons */
     .btn-gradient {
@@ -160,103 +117,41 @@
       justify-content: center;
       gap: 8px;
     }
-    
-    .btn-gradient:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 15px 30px -5px rgba(79, 70, 229, 0.5);
-    }
-    
+    .btn-gradient:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 15px 30px -5px rgba(79, 70, 229, 0.5); }
     .btn-gradient:active { transform: translateY(0) scale(0.98); }
     .btn-gradient:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
 
     /* File Upload */
-    .upload-zone {
-      border: 2px dashed #CBD5E1;
-      background: #F8FAFC;
-      border-radius: 16px;
-      padding: 40px 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .upload-zone:hover {
-      border-color: #818CF8;
-      background: rgba(129, 140, 248, 0.05);
-    }
-    
-    .upload-zone.has-file {
-      border-color: #10B981;
-      background: rgba(16, 185, 129, 0.05);
-    }
+    .upload-zone { border: 2px dashed #CBD5E1; background: #F8FAFC; border-radius: 16px; padding: 40px 20px; text-align: center; cursor: pointer; transition: all 0.3s ease; }
+    .upload-zone:hover { border-color: #818CF8; background: rgba(129, 140, 248, 0.05); }
+    .upload-zone.has-file { border-color: #10B981; background: rgba(16, 185, 129, 0.05); }
 
     /* Table */
-    .table-container {
-      overflow-x: auto;
-      border-radius: 16px;
-      border: 1px solid #E2E8F0;
-    }
-    
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 700px;
-    }
-    
-    .data-table thead th {
-      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
-      color: white;
-      padding: 16px;
-      text-align: left;
-      font-weight: 700;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
+    .table-container { overflow-x: auto; border-radius: 16px; border: 1px solid #E2E8F0; }
+    .data-table { width: 100%; border-collapse: collapse; min-width: 700px; }
+    .data-table thead th { background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%); color: white; padding: 16px; text-align: left; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
     .data-table thead th:first-child { border-radius: 16px 0 0 0; }
     .data-table thead th:last-child { border-radius: 0 16px 0 0; }
-    
-    .data-table tbody tr {
-      border-bottom: 1px solid #F1F5F9;
-      transition: background 0.2s;
-    }
-    
+    .data-table tbody tr { border-bottom: 1px solid #F1F5F9; transition: background 0.2s; }
     .data-table tbody tr:nth-child(even) { background: #FAFBFC; }
     .data-table tbody tr:hover { background: #F0F9FF; }
-    
-    .data-table tbody td {
-      padding: 16px;
-      color: #334155;
-      font-weight: 500;
-    }
+    .data-table tbody td { padding: 16px; color: #334155; font-weight: 500; }
 
-    /* Status Pill */
-    .status-pill {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-    
-    .status-uts { background: #DBEAFE; color: #1D4ED8; }
+    /* Status Pill - Updated for new categories */
+    .status-pill { display: inline-block; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+    .status-sts-ganjil { background: #DBEAFE; color: #1D4ED8; }
+    .status-sts-genap { background: #E0E7FF; color: #4338CA; }
+    .status-sas-ganjil { background: #D1FAE5; color: #059669; }
+    .status-sas-genap { background: #A7F3D0; color: #047857; }
     .status-uas { background: #FEE2E2; color: #DC2626; }
-    .status-us { background: #D1FAE5; color: #059669; }
-    .status-ukk { background: #FEF3C7; color: #D97706; }
-    .status-un { background: #E0E7FF; color: #4F46E5; }
-    .status-remedial { background: #FCE7F3; color: #DB2777; }
+    .status-kisi-kisi { background: #FEF3C7; color: #D97706; }
+    /* Fallback for unknown types */
+    .status-uts { background: #FCE7F3; color: #DB2777; }
+    .status-us { background: #E0E7FF; color: #4F46E5; }
 
     /* Animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .animate-in {
-      animation: fadeInUp 0.6s ease forwards;
-    }
-    
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-in { animation: fadeInUp 0.6s ease forwards; }
     .delay-1 { animation-delay: 0.1s; opacity: 0; }
     .delay-2 { animation-delay: 0.2s; opacity: 0; }
     .delay-3 { animation-delay: 0.3s; opacity: 0; }
@@ -274,34 +169,11 @@
     ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
     /* Toast */
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      padding: 16px 24px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 1000;
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      border-left: 4px solid #10B981;
-    }
-    
+    .toast { position: fixed; bottom: 24px; right: 24px; padding: 16px 24px; background: white; border-radius: 12px; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 12px; z-index: 1000; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); border-left: 4px solid #10B981; }
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast.error { border-left-color: #EF4444; }
 
-    /* Reduced Motion */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
   </style>
 </head>
 <body>
@@ -389,7 +261,7 @@
                 <option value="BAHASA INDONESIA">BAHASA INDONESIA</option>
                 <option value="MATEMATIKA">MATEMATIKA</option>
                 <option value="INFORMATIKA">INFORMATIKA</option>
-                <option value="KL 1 PEENANAMAN BAHAN TANA">KL 1 PEENANAMAN BAHAN TANAM</option>
+                <option value="KL 1 PENANAMAN BAHAN TANAM">KL 1 PENANAMAN BAHAN TANAM</option>
                 <option value="K1 PENGOLAHAN PRODUKSI TERNAK">K1 PENGOLAHAN PRODUKSI TERNAK</option>
                 <option value="K1 PENYAKIT IKAN">K1 PENYAKIT IKAN</option>
                 <option value="DASAR DASAR KEAHLIAN">DASAR DASAR KEAHLIAN</option>
@@ -403,9 +275,9 @@
                 <option value="MAPEL PILIHAN B7">MAPEL PILIHAN B7</option>
                 <option value="SENI BUDAYA">SENI BUDAYA</option>
                 <option value="PROJEK IPAS">PROJEK IPAS</option>
-                <option value="PRODUK KREATIF">PRODUK KREATIF </option>
+                <option value="PRODUK KREATIF">PRODUK KREATIF</option>
                 <option value="K1.2 PENGAIRAN">K1.2 PENGAIRAN</option>
-                <option value="PENDIDKAN JASAMANI DAN ROHANI">PENDIDKAN JASAMANI DAN ROHANI</option>
+                <option value="PENDIDIKAN JASMANI DAN ROHANI">PENDIDIKAN JASMANI DAN ROHANI</option>
                 <option value="K1.3 PEMUPUKAN">K1.3 PEMUPUKAN</option>
               </select>
             </div>
@@ -441,9 +313,10 @@
                 <option value="STS Ganjil">STS Ganjil</option>
                 <option value="STS Genap">STS Genap</option>
                 <option value="SAS Ganjil">SAS Ganjil</option>
-                <option value="SAS Ganjil">SAS Genap</option>
+                <!-- PERBAIKAN: Value sebelumnya salah "SAS Ganjil", diganti "SAS Genap" -->
+                <option value="SAS Genap">SAS Genap</option>
                 <option value="UAS">Ujian Akhir Sekolah</option>
-                <option value="Kisi-Kisi">Kisi Kisi Soal</option>
+                <option value="Kisi-Kisi">Kisi-Kisi Soal</option>
               </select>
             </div>
             
@@ -518,14 +391,15 @@
             <option value="">Semua Jurusan</option>
           </select>
           
+          <!-- PERBAIKAN: Opsi disesuaikan dengan Form Upload -->
           <select id="filterJenis" class="form-input-cheerful py-2 px-4 text-sm w-auto">
             <option value="">Semua Jenis</option>
-            <option value="UTS">UTS</option>
-            <option value="UAS">UAS</option>
-            <option value="US">Ujian Sekolah</option>
-            <option value="UN">Ujian Nasional</option>
-            <option value="UKK">UKK</option>
-            <option value="Remedial">Remedial</option>
+            <option value="STS Ganjil">STS Ganjil</option>
+            <option value="STS Genap">STS Genap</option>
+            <option value="SAS Ganjil">SAS Ganjil</option>
+            <option value="SAS Genap">SAS Genap</option>
+            <option value="UAS">Ujian Akhir Sekolah</option>
+            <option value="Kisi-Kisi">Kisi-Kisi Soal</option>
           </select>
           
           <button id="resetFilter" class="text-sm font-bold text-brand-blue hover:text-brand-purple transition-colors">
@@ -593,11 +467,15 @@
   </div>
 
   <script>
-    // Configuration & State
+    // ==========================================
+    // KONFIGURASI
+    // ==========================================
     const CONFIG = { 
-      API_URL: 'https://script.google.com/macros/s/AKfycbxV0aaf4CzXEcDyAuiuZ3X0e76xONWRfUS9Pt-TYlpMfV1qh5nD_R9GkDXOEEXaGhUGSQ/exec',
+      // PENTING: Ganti dengan URL Web App Anda setelah deploy ulang backend
+      API_URL: 'https://script.google.com/macros/s/AKfycbxV0aaf4CzXEcDyAuiuZ3X0e76xONWRfUS9Pt-TYlpMfV1qh5nD_R9GkDXOEEXaGhUGSQ/exec', 
       ITEMS_PER_PAGE: 10 
     };
+
     let state = {
       data: [],
       filteredData: [],
@@ -606,12 +484,10 @@
       filters: { search: '', mapel: '', kelas: '', jurusan: '', jenisUjian: '' }
     };
 
-    // DOM Elements
     const el = {};
     
-    // Initialize
     document.addEventListener('DOMContentLoaded', () => {
-      // Cache elements
+      // Cache Elements
       el.form = document.getElementById('uploadForm');
       el.submitBtn = document.getElementById('submitBtn');
       el.btnText = document.getElementById('btnText');
@@ -648,6 +524,9 @@
       fetchData();
     });
 
+    // ==========================================
+    // FUNGSI AMBIL DATA (GET)
+    // ==========================================
     async function fetchData() {
       try {
         state.isLoading = true;
@@ -667,39 +546,16 @@
         }
       } catch (error) {
         console.error('Error:', error);
-        showToast('Gagal memuat data', 'error');
-        // Jika error (misal offline), load mock data sebagai fallback opsional
-        // loadMockData(); 
+        showToast('Gagal memuat data: ' + error.message, 'error');
       } finally {
         state.isLoading = false;
         showTableLoading(false);
       }
-    }    
-    // Mock Data
-    function loadMockData() {
-      state.data = [
-        { id: 1, namaGuru: 'Ahmad Fauzi, S.Pd', mapel: 'Matematika', kelas: 'X', jurusan: 'TKJ', jenisUjian: 'UTS', timestamp: '2024-01-15T08:30:00' },
-        { id: 2, namaGuru: 'Siti Nurhaliza, S.Pd', mapel: 'Bahasa Inggris', kelas: 'XI', jurusan: 'RPL', jenisUjian: 'UAS', timestamp: '2024-01-15T09:45:00' },
-        { id: 3, namaGuru: 'Budi Santoso, M.Pd', mapel: 'Fisika', kelas: 'XII', jurusan: 'MM', jenisUjian: 'US', timestamp: '2024-01-14T14:20:00' },
-        { id: 4, namaGuru: 'Dewi Lestari, S.Pd', mapel: 'Bahasa Indonesia', kelas: 'X', jurusan: 'AKL', jenisUjian: 'UTS', timestamp: '2024-01-14T10:15:00' },
-        { id: 5, namaGuru: 'Eko Prasetyo, S.Kom', mapel: 'TIK', kelas: 'XI', jurusan: 'TKJ', jenisUjian: 'UKK', timestamp: '2024-01-13T11:00:00' },
-        { id: 6, namaGuru: 'Fitri Handayani, S.Pd', mapel: 'Kimia', kelas: 'XII', jurusan: 'RPL', jenisUjian: 'UAS', timestamp: '2024-01-13T08:00:00' },
-        { id: 7, namaGuru: 'Gunawan Wibowo, M.Pd', mapel: 'Sejarah', kelas: 'X', jurusan: 'OTKP', jenisUjian: 'Remedial', timestamp: '2024-01-12T15:30:00' },
-        { id: 8, namaGuru: 'Hesti Rahayu, S.Pd', mapel: 'Ekonomi', kelas: 'XI', jurusan: 'BDP', jenisUjian: 'UTS', timestamp: '2024-01-12T09:00:00' },
-        { id: 9, namaGuru: 'Irwan Setiawan, S.Pd', mapel: 'Biologi', kelas: 'XII', jurusan: 'MM', jenisUjian: 'UN', timestamp: '2024-01-11T13:45:00' },
-        { id: 10, namaGuru: 'Joko Widodo, M.Pd', mapel: 'Geografi', kelas: 'X', jurusan: 'TKJ', jenisUjian: 'UAS', timestamp: '2024-01-11T10:30:00' },
-        { id: 11, namaGuru: 'Kartini Sari, S.Pd', mapel: 'Matematika', kelas: 'XI', jurusan: 'AKL', jenisUjian: 'UTS', timestamp: new Date().toISOString() },
-        { id: 12, namaGuru: 'Lukman Hakim, S.Kom', mapel: 'TIK', kelas: 'XII', jurusan: 'RPL', jenisUjian: 'UKK', timestamp: new Date().toISOString() }
-      ];
-      
-      state.filteredData = [...state.data];
-      populateFilterOptions();
-      renderTable();
-      updateStats();
-      showTableLoading(false);
     }
 
-    // Render Functions
+    // ==========================================
+    // FUNGSI RENDER TABEL
+    // ==========================================
     function renderTable() {
       const start = (state.currentPage - 1) * CONFIG.ITEMS_PER_PAGE;
       const end = start + CONFIG.ITEMS_PER_PAGE;
@@ -715,17 +571,21 @@
       el.emptyState.classList.add('hidden');
       el.pagination.classList.remove('hidden');
       
-      el.tableBody.innerHTML = pageData.map((item, index) => `
-        <tr>
-          <td class="font-bold text-slate-500">${start + index + 1}</td>
-          <td class="font-bold text-slate-700">${escapeHtml(item.namaGuru)}</td>
-          <td>${escapeHtml(item.mapel)}</td>
-          <td><span class="px-2 py-1 bg-slate-100 rounded text-xs font-bold">${escapeHtml(item.kelas)}</span></td>
-          <td>${escapeHtml(item.jurusan)}</td>
-          <td><span class="status-pill status-${item.jenisUjian.toLowerCase()}">${escapeHtml(item.jenisUjian)}</span></td>
-          <td class="text-sm text-slate-400">${formatDate(item.timestamp)}</td>
-        </tr>
-      `).join('');
+      el.tableBody.innerHTML = pageData.map((item, index) => {
+        // Handle status class (spasi diganti strip, lowercase)
+        const statusClass = `status-${item.jenisUjian.toLowerCase().replace(/\s+/g, '-')}`;
+        return `
+          <tr>
+            <td class="font-bold text-slate-500">${start + index + 1}</td>
+            <td class="font-bold text-slate-700">${escapeHtml(item.namaGuru)}</td>
+            <td>${escapeHtml(item.mapel)}</td>
+            <td><span class="px-2 py-1 bg-slate-100 rounded text-xs font-bold">${escapeHtml(item.kelas)}</span></td>
+            <td>${escapeHtml(item.jurusan)}</td>
+            <td><span class="status-pill ${statusClass}">${escapeHtml(item.jenisUjian)}</span></td>
+            <td class="text-sm text-slate-400">${formatDate(item.timestamp)}</td>
+          </tr>
+        `;
+      }).join('');
       
       updatePagination();
     }
@@ -772,12 +632,8 @@
       const increment = target / 20;
       const timer = setInterval(() => {
         current += increment;
-        if (current >= target) {
-          el.textContent = target;
-          clearInterval(timer);
-        } else {
-          el.textContent = Math.floor(current);
-        }
+        if (current >= target) { el.textContent = target; clearInterval(timer); } 
+        else { el.textContent = Math.floor(current); }
       }, 30);
     }
 
@@ -804,19 +660,18 @@
       renderTable();
     }
 
-    // Event Listeners
+    // ==========================================
+    // EVENT LISTENERS
+    // ==========================================
     function setupEventListeners() {
-      // Form Submit
+      // Form Submit (PERBAIKAN: Kirim via JSON)
       el.form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const file = el.fileInput.files[0];
-        if (!file) {
-          showToast('Pilih file untuk diupload', 'error');
-          return;
-        }
+        if (!file) { showToast('Pilih file untuk diupload', 'error'); return; }
         
-        // UI Loading State
+        // UI Loading
         el.submitBtn.disabled = true;
         el.btnText.textContent = 'Mengupload...';
         el.btnIcon.classList.add('hidden');
@@ -826,28 +681,30 @@
           // 1. Konversi file ke Base64
           const reader = new FileReader();
           const fileBase64 = await new Promise((resolve, reject) => {
-            reader.onload = () => resolve(reader.result.split(',')[1]); // Ambil bagian base64 saja
+            reader.onload = () => resolve(reader.result.split(',')[1]);
             reader.onerror = error => reject(error);
             reader.readAsDataURL(file);
           });
           
-          // 2. Siapkan data untuk dikirim
+          // 2. Siapkan Data JSON
           const formData = new FormData(e.target);
-          const payload = new URLSearchParams();
-          payload.append('action', 'upload');
-          payload.append('namaGuru', formData.get('namaGuru'));
-          payload.append('mapel', formData.get('mapel'));
-          payload.append('kelas', formData.get('kelas'));
-          payload.append('jurusan', formData.get('jurusan'));
-          payload.append('jenisUjian', formData.get('jenisUjian'));
-          payload.append('fileBase64', fileBase64);
-          payload.append('fileName', file.name);
-          payload.append('mimeType', file.type);
+          const dataToSend = {
+            action: 'upload',
+            namaGuru: formData.get('namaGuru'),
+            mapel: formData.get('mapel'),
+            kelas: formData.get('kelas'),
+            jurusan: formData.get('jurusan'),
+            jenisUjian: formData.get('jenisUjian'),
+            fileBase64: fileBase64,
+            fileName: file.name,
+            mimeType: file.type
+          };
           
-          // 3. Kirim ke Google Apps Script
+          // 3. Kirim ke Backend (JSON)
           const response = await fetch(CONFIG.API_URL, {
             method: 'POST',
-            body: payload
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' }, // Penting: Hindari pre-flight CORS
+            body: JSON.stringify(dataToSend)
           });
           
           const result = await response.json();
@@ -856,7 +713,6 @@
             showToast('Soal berhasil diupload!', 'success');
             el.form.reset();
             resetFileUpload();
-            // Muat ulang data dari server
             fetchData(); 
           } else {
             throw new Error(result.message || 'Gagal upload');
@@ -866,7 +722,6 @@
           console.error(error);
           showToast('Gagal mengupload: ' + error.message, 'error');
         } finally {
-          // Reset Button
           el.submitBtn.disabled = false;
           el.btnText.textContent = 'Upload Soal';
           el.btnIcon.classList.remove('hidden');
@@ -874,7 +729,7 @@
         }
       });
 
-      // File Upload
+      // File Upload UI
       el.uploadZone.addEventListener('click', () => el.fileInput.click());
       el.fileInput.addEventListener('change', handleFileSelect);
       el.uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); el.uploadZone.classList.add('bg-indigo-50'); });
@@ -912,7 +767,9 @@
       });
     }
 
-    // Utilities
+    // ==========================================
+    // FUNGSI UTILITAS
+    // ==========================================
     function handleFileSelect(e) {
       const file = e.target.files[0];
       if (!file) return;
@@ -969,11 +826,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
